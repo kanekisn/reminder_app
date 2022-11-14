@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}" media="screen,projection" />
+	<link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Reminder App</title>
+  </head>
+<body>
+  <nav class="grey darken-4" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="{%url 'reminder_home'%}" class="brand-logo">Reminder</a>
+      <ul class="right hide-on-med-and-down">
+        {%if user.is_authenticated%}
+        <li><a href="{%url 'reminder_list'%}">Reminders</a></li>
+        <li><a class = "waves-effect waves-light btn-small" href="{% url 'logout'%}?next={{request.path}}"><i class="material-icons left">logout</i>Logout</a></li>
+        {%else%}
+        <li><a class = "waves-effect waves-light btn-small" href="{% url 'login'%}?next={{request.path}}"><i class="material-icons left">login</i>Login</a></li>
+        {%endif%}
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+        {%if user.is_authenticated%}
+        <li><a href="{%url 'reminder_list'%}">Reminders</a></li>
+        <li><a class = "waves-effect waves-light btn-small" href="{% url 'logout'%}?next={{request.path}}"><i class="material-icons left">logout</i>Logout</a></li>
+        {%else%}
+        <li><a class = "waves-effect waves-light btn-small" href="{% url 'login'%}?next={{request.path}}"><i class="material-icons left">login</i>Login</a></li>
+        {%endif%}
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+  {%block content%}
+  {%endblock%}
+
+  <footer class="page-footer teal">
+    <div class="container">
+      <div class="row center">
+        <div class="col s12">
+          <h5 class="white-text center-align">Reminder Footer</h5>
+          <p class="grey-text text-lighten-4 center-align">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        <p class="grey-text text-lighten-4 center-align">© 2022 Copyright Text</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/materialize_dtp.js' %}"></script>
+  <script>
+      $(".materialert > .close-alert").click(function (){
+          $(this).parent().hide('fade-out');
+      });
+
+      $(document).ready(function (){
+          M.AutoInit();
+          var DateField = MaterialDateTimePicker.create($('.datetime'))
+          $('.sidenav').sidenav();
+          $('.parallax').parallax();
+      });
+  </script>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+{%extends 'index.html'%}
+
+{%block content%}
+<div class="container">
+    <div class="section">
+  
+      <div class="row">
+        <div class="col s12 center">
+          <h3><i class="mdi-content-send brown-text"></i></h3>
+          <h5><i class="material-icons circle dark">insert_chart</i> Reminder Create</h5>
+          <div class="divider"></div>
+        </div>
+      </div>
+  
+    </div>
+</div>
+
+<div class = "container">
+    <div class="row">
+        <div class="col s8 offset-s2">
+            <div class="card card-art">
+                <div class="card-content center">
+                    {%if created_obj%}
+                        <div class="materialert success">
+                            <div class="material-icons">check</div>
+                                Reminder was created
+                            <button type="button" class="close-alert">×</button>
+                        </div>
+                    {%endif%}
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+
+                        {%if field.errors %}
+                            <div class="materialert error">
+                                <div class="material-icons">error_outline</div>
+                                    {{field.errors}}
+                                <button type="button" class="close-alert">×</button>
+                            </div>
+                        {%endif%}
+                        <div class="input-field">
+                            {%if field.name == "date_com"%}
+                                Date
+                                {{field}}
+                            {%else%}
+                                {{field.label}}
+                                {{field}}
+                            {%endif%}
+                        </div>
+                        {% endfor %}
+                        <button type="submit" class="btn waves-effect waves-light grey darken-3">Send<i
+                                class="material-icons right">send</i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
