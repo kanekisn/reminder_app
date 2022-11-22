@@ -3,6 +3,7 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Reminders
 from .forms import *
+from django.http import HttpResponseForbidden
 from django.core.paginator import Paginator
 from django.db.models import Q
 import datetime
@@ -51,11 +52,14 @@ class Reminder_Create(LoginRequiredMixin, View):
 class Reminder_Mark(LoginRequiredMixin, View):
     def get(self, request, id):
         obj = get_object_or_404(Reminders, id__iexact=id)
+        if request.user != obj.author: return HttpResponseForbidden()
         
         return render(request, 'reminder/reminder_mark.html', {'obj' : obj})
     
     def post(self, request, id):
         obj = get_object_or_404(Reminders, id__iexact=id)
+        if request.user != obj.author: return HttpResponseForbidden()
+        
         obj.is_sent = True
         obj.is_marked = True
         obj.date_com = datetime.datetime.utcnow().replace(tzinfo=pytz.UTC)
