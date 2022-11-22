@@ -10,6 +10,7 @@ class Reminders(models.Model):
     date_pub = models.DateTimeField(auto_now_add=True)
     date_com = models.DateTimeField(blank=True, null=True)
     is_sent = models.BooleanField(default=False)
+    is_marked = models.BooleanField(default=False)
     
     def date_due(self):
         s = (self.date_com - self.date_pub).total_seconds()

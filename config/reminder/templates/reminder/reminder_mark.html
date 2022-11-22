@@ -1,0 +1,37 @@
+{%extends 'index.html' %}
+{% block content %}
+<div class="container">
+    <div class="section">
+  
+      <div class="row">
+        <div class="col s12 center">
+          <br>
+          <h5>Complete your action</h5>
+          <div class="divider"></div>
+        </div>
+      </div>
+  
+    </div>
+</div>
+<div class="container">
+    <div class="section">
+        <div class="row">
+            <div class="col s12 center">
+                <br>
+                <h4>Are you sure that you want to complete reminder?</h4>
+                <br>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class = "center">
+                        <button type="submit" class="btn waves-effect waves-light green">Yes<i class="material-icons right">check</i></button>
+                        <a href = "{%url 'reminder_list'%}" class="btn waves-effect waves-light grey darken-3">No<i class="material-icons right">close</i></a>
+                    </div>
+                </form>
+                <br><br>
+                <br><br>
+                <br><br>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

@@ -9,7 +9,7 @@ def reminder_mail():
     
     if obj:
         for i in obj:
-            if i.should_sent():
+            if i.should_sent() and not i.is_completed():
                 i.is_sent = True
                 i.save()
                 
